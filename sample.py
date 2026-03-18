@@ -1,32 +1,26 @@
-import os
+import math
 
-def calculate_area(radius):
-    # Smell 1: Unused variable
-    pi_value = 3.14159
-    result = 3.14 * radius * radius
-    return result
+# 1. We use 'math.pi' for better accuracy and no unused variables
+def calculate_area(radius: float) -> float:
+    """Calculates the area of a circle."""
+    return math.pi * (radius ** 2)
 
 def main():
-    # Smell 2: Hardcoded secret
-    api_key = "12345-ABCDE-SECRET-KEY"
+    # 2. FIX: Hardcoded API Key removed (Security Hotspot resolved)
     
-    # Smell 3: Duplicate logic
-    r1 = 5
-    area1 = 3.14 * r1 * r1
-    print("Area is:", area1)
-    
-    r2 = 10
-    area2 = 3.14 * r2 * r2 
-    print("Area is:", area2)
+    # 3. FIX: Using a loop and a function to avoid duplication (Code Smell resolved)
+    radii = [5, 10]
+    for r in radii:
+        area = calculate_area(r)
+        print(f"Area for radius {r} is: {area:.2f}")
 
-    # Smell 4: Bare except block
+    # 4. FIX: Handling a specific error instead of a bare 'except' (Reliability improved)
     try:
-        f = open("non_existent_file.txt")
-    except:
-        pass
+        with open("non_existent_file.txt", "r") as f:
+            content = f.read()
+    except FileNotFoundError:
+        print("Note: Optional file not found, moving on.")
 
 if _name_ == "_main_":
     main()
-
-
 
